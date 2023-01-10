@@ -3,6 +3,8 @@ package com.example.indiannewsexpress;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -33,24 +35,26 @@ public class SPLASH_SCREEN extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_s_p_l_a_s_h__s_c_r_e_e_n, container, false);
+        View view = inflater.inflate(R.layout.fragment_s_p_l_a_s_h__s_c_r_e_e_n, container, false);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        handler=new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (user != null)
-                {
-                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out).replace(R.id.maincontainer,new HOME()).commit();
+                if (user != null) {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                            .replace(R.id.maincontainer, new HOME()).commit();
                     FirebaseAuth.getInstance().signOut();
-                }
-                else
-                {
-                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out).replace(R.id.maincontainer,new LOGIN()).commit();
+                } else {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                            .replace(R.id.maincontainer, new LOGIN()).commit();
                 }
 
             }
-        },3000);
+        }, 3000);
 
 
         return view;

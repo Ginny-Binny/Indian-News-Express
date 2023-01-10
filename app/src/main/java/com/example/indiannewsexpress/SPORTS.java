@@ -47,7 +47,7 @@ public class SPORTS extends Fragment {
         newsHeadlines =new ArrayList<>();
         ourcountry.setHasFixedSize(true);
         ourcountry.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter =new CustomAdapter(getContext(),newsHeadlines);
+        adapter =new CustomAdapter(getContext(), this, newsHeadlines);
         ourcountry.setAdapter(adapter);
 
         getnews();
